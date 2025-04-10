@@ -1,4 +1,4 @@
---Create the database bookworm_oasisdb
+-- Create the database bookworm_oasisdb
 CREATE DATABASE bookworm_oasisdb
     DEFAULT CHARACTER SET = 'utf8mb4';
 
@@ -6,7 +6,7 @@ CREATE DATABASE bookworm_oasisdb
 CREATE USER 'bookstore'@'localhost' IDENTIFIED BY 'password';
 GRANT SELECT, INSERT, UPDATE, DELETE ON bookworm_oasisdb.* TO 'bookstore'@'localhost';
 
---Create tables in the bookworm_oasisdb database
+-- Create tables in the bookworm_oasisdb database
 -- 1. author
 CREATE TABLE author (
     author_id INT AUTO_INCREMENT PRIMARY KEY,
