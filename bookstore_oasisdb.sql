@@ -2,6 +2,9 @@
 CREATE DATABASE bookworm_oasisdb
     DEFAULT CHARACTER SET = 'utf8mb4';
 
+-- Add user management privileges to the bookworm_oasisdb database
+CREATE USER 'bookstore'@'localhost' IDENTIFIED BY 'password';
+GRANT SELECT, INSERT, UPDATE, DELETE ON bookworm_oasisdb.* TO 'bookstore'@'localhost';
 
 --Create tables in the bookworm_oasisdb database
 -- 1. author
@@ -152,3 +155,54 @@ ADD CONSTRAINT fk_address_country FOREIGN KEY (country_id) REFERENCES country(co
 -- order_history table foreign keys
 ALTER TABLE order_history
 ADD CONSTRAINT fk_order_history_order FOREIGN KEY (order_id) REFERENCES customer_order(order_id);
+
+
+-- Insert sample data into the tables
+-- author table 
+INSERT INTO author (names, bio) VALUES
+('John Doe', 'An acclaimed author known for his thrilling novels.'),
+('Jane Smith', 'A bestselling author with a passion for storytelling.'),
+('Emily Johnson', 'An award-winning author with a unique writing style.');
+
+-- book table 
+INSERT INTO book (title, book_image, price, description, publisher_id, language_id) VALUES
+('The Great Adventure', NULL, 25.99, 'An epic tale of adventure and discovery.', 1, 1),
+('Mystery of the Lost Island', NULL, 15.50, 'A thrilling mystery set on a remote island.', 2, 2),
+('Cooking Made Easy', NULL, 30.00, 'A comprehensive guide to cooking delicious meals.', 3, 1),
+('The Art of Programming', NULL, 45.00, 'A deep dive into programming concepts and techniques.', 1, 3);
+
+-- customer table 
+INSERT INTO customer (name, email, phone, password) VALUES
+('Alice Johnson', 'alice.johnson@example.com', '123-456-7890', 'password123'),
+('Bob Smith', 'bob.smith@example.com', '987-654-3210', 'securepassword'),
+('Charlie Brown', 'charlie.brown@example.com', '555-555-5555', 'mypassword');
+
+-- customer_order table 
+INSERT INTO customer_order (customer_id, order_date, method_id, order_status, total_amount, history_id) VALUES
+(1, '2025-04-01 10:30:00', 1, 'Pending', 55.99, NULL),
+(2, '2025-04-05 14:45:00', 2, 'Shipped', 30.00, NULL),
+(3, '2025-04-08 09:15:00', 1, 'Delivered', 45.00, NULL);
+
+-- shipping_method table
+INSERT INTO shipping_method (method_name, cost) VALUES
+('Standard Shipping', 5.99),
+('Express Shipping', 15.99);
+
+-- book_language table
+INSERT INTO book_language (language_name, language_code) VALUES
+('English', 'EN'),
+('Spanish', 'ES'),
+('French', 'FR');
+
+-- publisher table
+INSERT INTO publisher (name, email, address_id) VALUES
+('Adventure Books', 'contact@adventurebooks.com', NULL),
+('Mystery Publishers', 'info@mysterypublishers.com', NULL),
+('Cooking World', 'support@cookingworld.com', NULL);
+
+
+-- Test queries to verify the database structure and data
+SELECT * FROM book WHERE price > 20.00;
+SELECT customer.name, customer_order.order_date 
+FROM customer 
+JOIN customer_order ON customer.customer_id = customer_order.customer_id;
