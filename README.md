@@ -17,7 +17,7 @@ The **Bookworm Oasis Database** is a relational database designed to manage the 
 
 ## ERD Diagram
 
-![ERD Diagram](erd.png)
+![ERD Diagram](bookstore-oasis.svg)
 
 ---
 
