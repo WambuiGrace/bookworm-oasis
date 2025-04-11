@@ -206,3 +206,12 @@ SELECT * FROM book WHERE price > 20.00;
 SELECT customer.name, customer_order.order_date 
 FROM customer 
 JOIN customer_order ON customer.customer_id = customer_order.customer_id;
+
+-- Retrieve customer orders with a status of 'Delivered'
+SELECT customer_order.order_id AS order_id, 
+       customer.name AS customer_name, 
+       customer_order.order_date AS order_date, 
+       customer_order.total_amount AS total_amount
+FROM customer_order
+JOIN customer ON customer_order.customer_id = customer.customer_id
+WHERE customer_order.order_status = 'Delivered';
